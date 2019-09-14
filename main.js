@@ -19,7 +19,7 @@ function createWindow() {
   win.loadFile('src/index.html');
 
   // Otwórz Narzędzia Deweloperskie.
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
 
   // Emitowane, gdy okno jest zamknięte.
   win.on('closed', () => {
