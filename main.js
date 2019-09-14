@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const shell = require('electron').shell;
+const ipc = require('electron').ipcMain;
 // Zachowaj globalną referencję obiektu okna, jeśli tego nie zrobisz, okno
 // zostanie zamknięte automatycznie, gdy obiekt JavaScript odśmieci pamięć.
 let win;
@@ -61,6 +62,8 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+//app.setAppUserModelId('crypto.app.id');
+//app.setAppUserModelId(process.execPath);
 app.on('ready', createWindow);
 
 // Zamknij, gdy wszystkie okna są zamknięte.
@@ -78,4 +81,8 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+});
+
+ipc.on('update-notify-value', (event, arg) => {
+  win.webContents.send('targetPriceVal', arg);
 });
